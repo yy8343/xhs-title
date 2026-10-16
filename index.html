@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小红书爆款标题生成器 · 免费</title>
+<meta name="description" content="输入主题，一键生成多种风格的小红书标题。免费、无需注册。">
+<style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:640px;margin:0 auto;padding:20px;background:#fff7f7;color:#222}
+h1{color:#ff2442;font-size:26px}
+input,select,button{font-size:16px;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;box-sizing:border-box;margin:6px 0}
+button{background:#ff2442;color:#fff;border:none;cursor:pointer}
+li{background:#fff;margin:8px 0;padding:10px;border-radius:8px;list-style:none;display:flex;justify-content:space-between;gap:8px}
+li button{width:auto;padding:4px 10px;font-size:13px}
+ul{padding:0}
+.box{background:#fff;padding:14px;border-radius:10px;margin-top:24px}
+small{color:#888}
+</style>
+</head>
+<body>
+<h1>小红书爆款标题生成器</h1>
+<p>输入你的笔记主题，一键生成 10 个不同风格的标题。完全免费，在你的浏览器里运行。</p>
+<input id="topic" placeholder="例如：通勤穿搭、减脂早餐、考研英语">
+<select id="who">
+<option value="">目标人群（可选）</option>
+<option>打工人</option><option>学生党</option><option>宝妈</option><option>新手</option><option>女生</option>
+</select>
+<button onclick="gen()">生成标题</button>
+<ul id="out"></ul>
+
+<div class="box">
+<b>想要更多功能？</b>
+<p>正在开发：AI 正文生成、标签推荐、批量导出。留下邮箱，上线第一时间通知你。</p>
+<form action="https://formsubmit.co/yy8343@gmail.com" method="POST">
+<input type="hidden" name="_subject" value="标题生成器 新登记">
+<input type="hidden" name="_captcha" value="false">
+<input type="email" name="email" required placeholder="你的邮箱">
+<button type="submit">登记</button>
+</form>
+</div>
+
+<div class="box">
+<b>觉得好用？</b>
+<p>请作者喝杯咖啡，支持继续开发。</p>
+<a id="donate" href="#" onclick="alert('赞助链接即将开放，感谢支持！');return false;"><button type="button">☕ 赞助作者</button></a>
+</div>
+<p><small>© 2026 · 免费工具</small></p>
+
+<script>
+const T=[
+"{w}必看！{t}这样做真的绝了","后悔没早点知道的{t}技巧","{t}｜我愿称之为天花板","{w}的{t}，看这一篇就够了",
+"别再乱来了！{t}的正确打开方式","挑战30天{t}，结果惊呆我","{t}避坑指南，{w}一定要收藏","被问了800遍的{t}，今天全分享",
+"零基础也能学会的{t}","{t}｜普通人也能做到的小改变","求求了，{t}千万别这样做","花了3年才总结出的{t}经验",
+"{t}真的会上瘾，{w}冲！","低成本{t}，效果却出奇的好","{t}清单｜建议先码住"];
+function gen(){
+ const t=document.getElementById('topic').value.trim()||'穿搭';
+ const w=document.getElementById('who').value||'姐妹们';
+ const out=document.getElementById('out');out.innerHTML='';
+ [...T].sort(()=>Math.random()-.5).slice(0,10).forEach(s=>{
+  const x=s.replaceAll('{t}',t).replaceAll('{w}',w);
+  const li=document.createElement('li');li.textContent=x;
+  const b=document.createElement('button');b.textContent='复制';
+  b.onclick=()=>{navigator.clipboard.writeText(x);b.textContent='已复制'};
+  li.appendChild(b);out.appendChild(li);
+ });
+}
+</script>
+</body>
+</html>
