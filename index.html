@@ -10,8 +10,10 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-wi
 h1{color:#ff2442;font-size:26px}
 input,select,button{font-size:16px;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;box-sizing:border-box;margin:6px 0}
 button{background:#ff2442;color:#fff;border:none;cursor:pointer}
-li{background:#fff;margin:8px 0;padding:10px;border-radius:8px;list-style:none;display:flex;justify-content:space-between;gap:8px}
-li button{width:auto;padding:4px 10px;font-size:13px}
+li{background:#fff;margin:10px 0;padding:12px;border-radius:8px;list-style:none}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.t{font-weight:bold}.b{white-space:pre-wrap;color:#444;font-size:14px;margin-top:8px;border-top:1px dashed #eee;padding-top:8px}
+li button{width:auto;padding:4px 10px;font-size:13px;flex-shrink:0}
 ul{padding:0}
 .box{background:#fff;padding:14px;border-radius:10px;margin-top:24px}
 small{color:#888}
@@ -19,13 +21,13 @@ small{color:#888}
 </head>
 <body>
 <h1>小红书爆款标题生成器</h1>
-<p>输入你的笔记主题，一键生成 10 个不同风格的标题。完全免费，在你的浏览器里运行。</p>
+<p>输入你的笔记主题，一键生成 10 组「标题 + 正文」，可分别复制。完全免费，在你的浏览器里运行。</p>
 <input id="topic" placeholder="例如：通勤穿搭、减脂早餐、考研英语">
 <select id="who">
 <option value="">目标人群（可选）</option>
 <option>打工人</option><option>学生党</option><option>宝妈</option><option>新手</option><option>女生</option>
 </select>
-<button onclick="gen()">生成标题</button>
+<button onclick="gen()">生成标题和正文</button>
 <ul id="out"></ul>
 
 <div class="box">
@@ -52,16 +54,31 @@ const T=[
 "别再乱来了！{t}的正确打开方式","挑战30天{t}，结果惊呆我","{t}避坑指南，{w}一定要收藏","被问了800遍的{t}，今天全分享",
 "零基础也能学会的{t}","{t}｜普通人也能做到的小改变","求求了，{t}千万别这样做","花了3年才总结出的{t}经验",
 "{t}真的会上瘾，{w}冲！","低成本{t}，效果却出奇的好","{t}清单｜建议先码住"];
+const O=["{w}们！今天必须跟你们聊聊{t}💡","说真的，{t}这件事我踩过太多坑了😭","最近好多人私信问我{t}，今天一次说清楚✨","作为一个{w}，{t}真的改变了我很多🙌"];
+const M=[["先说结论：{t}没有你想的那么难。","关键是找对方法，而不是盲目跟风。","坚持一段时间，变化真的肉眼可见。"],["✅ 第一步：先明确自己的需求和预算","✅ 第二步：从最简单的一件小事开始","✅ 第三步：每天记录，及时调整"],["❌ 不要一开始就追求完美","❌ 不要只看别人怎么做，适合自己最重要","❌ 不要三天打鱼两天晒网"],["📌 小建议：可以先从一周的小目标开始","📌 遇到瓶颈很正常，换个思路就好","📌 找个伙伴一起，更容易坚持"]];
+const E=["有问题评论区问我，看到都会回💬","觉得有用记得点赞收藏⭐ 下次找得到","你们还有什么{t}的心得？评论区分享一下👇","关注我，持续分享更多{w}干货～"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function body(t,w){
+ const f=x=>x.replaceAll('{t}',t).replaceAll('{w}',w);
+ const mids=[...M].sort(()=>Math.random()-.5).slice(0,2).flat();
+ const tag=t.replace(/\s+/g,'');
+ return [f(pick(O)),'',...mids.map(f),'',f(pick(E)),'','#'+tag+' #'+tag+'分享 #'+w+' #干货分享 #经验分享'].join('\n');
+}
+function cbtn(txt){const b=document.createElement('button');b.textContent='复制'+txt[0];b.onclick=()=>{navigator.clipboard.writeText(txt[1]);b.textContent='已复制'};return b;}
 function gen(){
  const t=document.getElementById('topic').value.trim()||'穿搭';
  const w=document.getElementById('who').value||'姐妹们';
  const out=document.getElementById('out');out.innerHTML='';
  [...T].sort(()=>Math.random()-.5).slice(0,10).forEach(s=>{
-  const x=s.replaceAll('{t}',t).replaceAll('{w}',w);
-  const li=document.createElement('li');li.textContent=x;
-  const b=document.createElement('button');b.textContent='复制';
-  b.onclick=()=>{navigator.clipboard.writeText(x);b.textContent='已复制'};
-  li.appendChild(b);out.appendChild(li);
+  const x=s.replaceAll('{t}',t).replaceAll('{w}',w), y=body(t,w);
+  const li=document.createElement('li');
+  const r1=document.createElement('div');r1.className='row';
+  const d1=document.createElement('div');d1.className='t';d1.textContent=x;
+  r1.append(d1,cbtn(['标题',x]));
+  const r2=document.createElement('div');r2.className='row';
+  const d2=document.createElement('div');d2.className='b';d2.textContent=y;
+  r2.append(d2,cbtn(['正文',y]));
+  li.append(r1,r2);out.appendChild(li);
  });
 }
 </script>
