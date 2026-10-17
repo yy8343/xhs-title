@@ -3,42 +3,66 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>小红书爆款标题生成器 · 免费</title>
-<meta name="description" content="输入主题，一键生成多种风格的小红书标题。免费、无需注册。">
+<title>小红书标题生成器（免费·不限次）｜一键生成爆款标题+正文</title>
+<meta name="description" content="免费在线小红书标题生成器：输入主题，一键生成10组爆款标题和配套正文，可按学生党、宝妈、打工人等人群生成。无需注册、不限次数，打开浏览器就能用。">
+<link rel="canonical" href="https://yy8343.github.io/xhs-title/">
 <style>
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:640px;margin:0 auto;padding:20px;background:#fff7f7;color:#222}
 h1{color:#ff2442;font-size:26px}
+h2{font-size:18px;margin:0 0 8px}
 input,select,button{font-size:16px;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;box-sizing:border-box;margin:6px 0}
 button{background:#ff2442;color:#fff;border:none;cursor:pointer}
+button.ghost{background:#fff;color:#ff2442;border:1px solid #ff2442}
 li{background:#fff;margin:10px 0;padding:12px;border-radius:8px;list-style:none}
 .row{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .t{font-weight:bold}.b{white-space:pre-wrap;color:#444;font-size:14px;margin-top:8px;border-top:1px dashed #eee;padding-top:8px}
 li button{width:auto;padding:4px 10px;font-size:13px;flex-shrink:0}
 ul{padding:0}
 .box{background:#fff;padding:14px;border-radius:10px;margin-top:24px}
+.faq dt{font-weight:bold;margin-top:10px}.faq dd{margin:4px 0 0;color:#444;font-size:14px}
 small{color:#888}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(0,0,0,.82);color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;max-width:86%;text-align:center;display:none;z-index:9}
+#thanks{display:none;background:#e9f9ee;color:#1a7f37;padding:10px;border-radius:8px}
 </style>
 </head>
 <body>
-<h1>小红书爆款标题生成器</h1>
-<p>输入你的笔记主题，一键生成 10 组「标题 + 正文」，可分别复制。完全免费，在你的浏览器里运行。</p>
-<input id="topic" placeholder="例如：通勤穿搭、减脂早餐、考研英语">
+<h1>小红书标题生成器</h1>
+<p>输入你的笔记主题，一键生成 10 组「标题 + 正文」，可分别复制。完全免费、不限次数、无需注册，在你的浏览器里运行。</p>
+<input id="topic" maxlength="30" placeholder="例如：通勤穿搭、减脂早餐、考研英语">
 <select id="who">
 <option value="">目标人群（可选）</option>
 <option>打工人</option><option>学生党</option><option>宝妈</option><option>新手</option><option>女生</option>
 </select>
-<button onclick="gen()">生成标题和正文</button>
+<button id="genBtn" type="button">生成标题和正文</button>
+<button id="shareBtn" type="button" class="ghost">分享给朋友</button>
 <ul id="out"></ul>
 
 <div class="box">
 <b>想要更多功能？</b>
-<p>正在开发：AI 正文生成、标签推荐、批量导出。留下邮箱，上线第一时间通知你。</p>
-<form action="https://formsubmit.co/yy8343@gmail.com" method="POST">
+<p>正在开发：标签推荐、批量导出。留下邮箱，上线第一时间通知你。</p>
+<p id="thanks">登记成功，感谢！上线后会第一时间通知你。</p>
+<form id="signup" action="https://formsubmit.co/yy8343@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="标题生成器 新登记">
 <input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" id="f_next" value="https://yy8343.github.io/xhs-title/?subscribed=1">
+<input type="hidden" name="source" id="f_source" value="direct">
+<input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 <input type="email" name="email" required placeholder="你的邮箱">
 <button type="submit">登记</button>
 </form>
+</div>
+
+<div class="box faq">
+<h2>常见问题</h2>
+<dl>
+<dt>怎么用？</dt><dd>输入笔记主题（如「通勤穿搭」），可选目标人群，点「生成标题和正文」，每组结果都能单独复制标题或正文。</dd>
+<dt>收费吗？有次数限制吗？</dt><dd>免费，无需注册，页面没有次数限制，可以反复生成。</dd>
+<dt>能同时生成正文吗？</dt><dd>能。每个标题都配一段正文和话题标签，可直接复制后再按自己的情况修改。</dd>
+<dt>能按人群写标题吗？</dt><dd>可以选择打工人、学生党、宝妈、新手、女生，标题和正文会带上对应称呼。</dd>
+<dt>小红书标题怎么写更吸引人？</dt><dd>常见做法是把主题关键词放在标题前面，再加上人群、数字或具体场景。本工具内置了「避坑指南」「清单」「零基础」等常用句式，可以当作参考起点。</dd>
+</dl>
 </div>
 
 <div class="box">
@@ -47,8 +71,68 @@ small{color:#888}
 <a id="donate" href="#" onclick="alert('赞助链接即将开放，感谢支持！');return false;"><button type="button">☕ 赞助作者</button></a>
 </div>
 <p><small>© 2026 · 免费工具</small></p>
+<p><small>隐私说明：本站只统计匿名访问和按钮点击（如「生成」「复制」「分享」），不记录你输入的主题和生成的内容，不使用 cookie。</small></p>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
+/* ---------- 统计（全部 try/catch；统计失败不影响工具） ---------- */
+(function(){
+  var q = [], ready = false;
+  function send(name){
+    try { window.goatcounter.count({ path: name, title: name, event: true }); } catch(e) {}
+  }
+  // 只接受固定的事件名；绝不传入用户输入或生成内容
+  window.xtTrack = function(name){
+    try {
+      if (typeof name !== 'string' || !/^[a-z0-9-]{1,40}$/.test(name)) return;
+      if (ready && window.goatcounter && typeof window.goatcounter.count === 'function') send(name);
+      else if (q.length < 50) q.push(name);
+    } catch(e) {}
+  };
+  window.xtFlush = function(){
+    try {
+      if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+      ready = true;
+      while (q.length) send(q.shift());
+    } catch(e) {}
+  };
+  try {
+    // 浏览量只记路径，不带查询参数（来源由 src-xxx / ref-share 事件单独记录）
+    window.goatcounter = { path: function(){ return location.pathname || '/'; } };
+  } catch(e) {}
+  try {
+    var p = new URLSearchParams(location.search);
+    // src：只接受短字母代码，如 xhs / x / wx / zhihu / jike / x-bio
+    var src = (p.get('src') || '').toLowerCase();
+    if (!/^[a-z]{1,10}(-[a-z]{1,10})?$/.test(src)) src = '';
+    window.xtSrc = src;
+    if (src) xtTrack('src-' + src);
+    if ((p.get('ref') || '').toLowerCase() === 'share') xtTrack('ref-share');
+  } catch(e) {}
+  try {
+    // UA 粗分：只上报 wechat / qq / other，不上报 UA 原文
+    var ua = navigator.userAgent || '';
+    xtTrack(/MicroMessenger/i.test(ua) ? 'env-wechat' : (/\sQQ\//.test(ua) ? 'env-qq' : 'env-other'));
+  } catch(e) {}
+  try {
+    // 回访：localStorage 只存上次访问日期（YYYY-MM-DD），无任何标识符
+    var d = new Date(), today = d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2);
+    var last = localStorage.getItem('xt_last_visit');
+    if (last && /^\d{4}-\d{2}-\d{2}$/.test(last) && last !== today) xtTrack('returning');
+    localStorage.setItem('xt_last_visit', today);
+  } catch(e) {}
+  try {
+    // 停留满 30 秒（只累计页面可见时间），每次打开最多发一次
+    var vis = 0, timer = setInterval(function(){
+      try {
+        if (document.visibilityState === undefined || document.visibilityState === 'visible') vis++;
+        if (vis >= 30) { clearInterval(timer); xtTrack('engaged-30s'); }
+      } catch(e) { clearInterval(timer); }
+    }, 1000);
+  } catch(e) {}
+})();
+
+/* ---------- 工具本身 ---------- */
 const T=[
 "{w}必看！{t}这样做真的绝了","后悔没早点知道的{t}技巧","{t}｜我愿称之为天花板","{w}的{t}，看这一篇就够了",
 "别再乱来了！{t}的正确打开方式","挑战30天{t}，结果惊呆我","{t}避坑指南，{w}一定要收藏","被问了800遍的{t}，今天全分享",
@@ -58,29 +142,89 @@ const O=["{w}们！今天必须跟你们聊聊{t}💡","说真的，{t}这件事
 const M=[["先说结论：{t}没有你想的那么难。","关键是找对方法，而不是盲目跟风。","坚持一段时间，变化真的肉眼可见。"],["✅ 第一步：先明确自己的需求和预算","✅ 第二步：从最简单的一件小事开始","✅ 第三步：每天记录，及时调整"],["❌ 不要一开始就追求完美","❌ 不要只看别人怎么做，适合自己最重要","❌ 不要三天打鱼两天晒网"],["📌 小建议：可以先从一周的小目标开始","📌 遇到瓶颈很正常，换个思路就好","📌 找个伙伴一起，更容易坚持"]];
 const E=["有问题评论区问我，看到都会回💬","觉得有用记得点赞收藏⭐ 下次找得到","你们还有什么{t}的心得？评论区分享一下👇","关注我，持续分享更多{w}干货～"];
 const pick=a=>a[Math.floor(Math.random()*a.length)];
+const track=n=>{try{window.xtTrack&&window.xtTrack(n)}catch(e){}};
+// "{w}们" 且 w 已以"们"结尾时不再叠加（修复"姐妹们们"）
+function fill(s,t,w){const wp=/们$/.test(w)?w:w+'们';return s.split('{w}们').join(wp).split('{t}').join(t).split('{w}').join(w);}
+// 话题标签只保留中英文、数字、下划线
+function cleanTag(s){try{return String(s).replace(/[^\p{Script=Han}A-Za-z0-9_]/gu,'')}catch(e){return String(s).replace(/[\s#.,，。、！!？?：:；;“”"'‘’（）()【】\[\]《》<>…~～|｜\/\\@&*+=^%$-]/g,'')}}
 function body(t,w){
- const f=x=>x.replaceAll('{t}',t).replaceAll('{w}',w);
+ const f=x=>fill(x,t,w);
  const mids=[...M].sort(()=>Math.random()-.5).slice(0,2).flat();
- const tag=t.replace(/\s+/g,'');
- return [f(pick(O)),'',...mids.map(f),'',f(pick(E)),'','#'+tag+' #'+tag+'分享 #'+w+' #干货分享 #经验分享'].join('\n');
+ const tag=cleanTag(t)||'穿搭', wt=cleanTag(w);
+ const tags=['#'+tag,'#'+tag+'分享',wt?'#'+wt:'','#干货分享','#经验分享'].filter(Boolean);
+ return [f(pick(O)),'',...mids.map(f),'',f(pick(E)),'',tags.join(' ')].join('\n');
 }
-function cbtn(txt){const b=document.createElement('button');b.textContent='复制'+txt[0];b.onclick=()=>{navigator.clipboard.writeText(txt[1]);b.textContent='已复制'};return b;}
+let toastTimer;
+function toast(msg){try{const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.style.display='none'},2600);}catch(e){}}
+// 复制：优先 Clipboard API，失败降级 execCommand，再失败返回 false
+function legacyCopy(text){
+ try{const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.top='-1000px';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,text.length);const ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(e){return false}
+}
+function copyText(text){
+ return new Promise(resolve=>{
+  try{
+   if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>resolve(true),()=>resolve(legacyCopy(text)));
+   }else resolve(legacyCopy(text));
+  }catch(e){resolve(legacyCopy(text))}
+ });
+}
+function selectEl(el){try{const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}catch(e){}}
+function cbtn(label,text,el,ev){
+ const b=document.createElement('button');b.type='button';b.textContent='复制'+label;
+ b.onclick=()=>copyText(text).then(ok=>{
+  if(ok){b.textContent='已复制';track(ev);setTimeout(()=>{b.textContent='复制'+label},1500);}
+  else{b.textContent='复制'+label;selectEl(el);toast('复制失败，已帮你选中文字，请长按手动复制');track('copy-fail');}
+ });
+ return b;
+}
 function gen(){
- const t=document.getElementById('topic').value.trim()||'穿搭';
+ const t=document.getElementById('topic').value.trim().slice(0,30)||'穿搭';
  const w=document.getElementById('who').value||'姐妹们';
  const out=document.getElementById('out');out.innerHTML='';
  [...T].sort(()=>Math.random()-.5).slice(0,10).forEach(s=>{
-  const x=s.replaceAll('{t}',t).replaceAll('{w}',w), y=body(t,w);
+  const x=fill(s,t,w), y=body(t,w);
   const li=document.createElement('li');
   const r1=document.createElement('div');r1.className='row';
   const d1=document.createElement('div');d1.className='t';d1.textContent=x;
-  r1.append(d1,cbtn(['标题',x]));
+  r1.append(d1,cbtn('标题',x,d1,'copy-title'));
   const r2=document.createElement('div');r2.className='row';
   const d2=document.createElement('div');d2.className='b';d2.textContent=y;
-  r2.append(d2,cbtn(['正文',y]));
+  r2.append(d2,cbtn('正文',y,d2,'copy-body'));
   li.append(r1,r2);out.appendChild(li);
  });
+ track('generate');
 }
+function shareUrl(){return location.origin+location.pathname+'?ref=share'}
+function share(){
+ track('share-click');
+ const url=shareUrl(), title='小红书标题生成器（免费·不限次）';
+ const viaCopy=()=>copyText(url).then(ok=>{
+  if(ok){toast('链接已复制，发给朋友吧');track('share-copylink');}
+  else{toast('复制失败，请手动复制链接：'+url);track('share-fail');}
+ });
+ try{
+  if(navigator.share){
+   navigator.share({title:title,text:'输入主题，一键生成小红书标题和正文，免费不限次',url:url})
+    .then(()=>track('share-native-ok'))
+    .catch(err=>{if(err&&err.name==='AbortError'){track('share-native-cancel')}else{viaCopy()}});
+   return;
+  }
+ }catch(e){}
+ viaCopy();
+}
+document.getElementById('genBtn').addEventListener('click',gen);
+document.getElementById('shareBtn').addEventListener('click',share);
+document.getElementById('topic').addEventListener('keydown',e=>{if(e.key==='Enter')gen()});
+// 表单：source 隐藏字段（只填清洗过的来源代码）、_next 跳回本站、提交后提示
+try{
+ document.getElementById('f_source').value=window.xtSrc||'direct';
+ document.getElementById('f_next').value=location.origin+location.pathname+'?subscribed=1';
+ document.getElementById('signup').addEventListener('submit',()=>track('email-submit'));
+ if(new URLSearchParams(location.search).get('subscribed')==='1'){document.getElementById('thanks').style.display='block';}
+}catch(e){}
 </script>
+<!-- GoatCounter（count.js 自托管于本仓库；加载失败不影响工具） -->
+<script data-goatcounter="https://xhstitle.goatcounter.com/count" async src="js/count.js" onload="try{xtFlush()}catch(e){}"></script>
 </body>
 </html>

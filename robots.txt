@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yy8343.github.io/xhs-title/sitemap.xml
