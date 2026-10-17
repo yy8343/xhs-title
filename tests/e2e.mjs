@@ -140,6 +140,46 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
   ok(evs(hits).filter(e=>e.p==='returning').length===1,'同一天再打开不重复记 returning');
   await ctx.close();
 }
+
+// Q. q 只保留校验过的 src/ref，丢掉无关参数
+{
+  const {ctx,page,hits}=await setup();
+  await page.goto(BASE+'?src=xhs&ref=share&utm_source=test&subscribed=1&email=a%40b.com'); await page.waitForLoadState('load');
+  await wait(800);
+  const E=evs(hits); const pageviews=E.filter(e=>e.p==='/xhs-title/');
+  ok(pageviews.length>=1,'有页面浏览上报');
+  const qs=pageviews.map(e=>e.q||'');
+  console.log('  q 值:',JSON.stringify(qs));
+  ok(qs.every(q=>q=== '?src=xhs&ref=share' || q==='src=xhs&ref=share' || (q.includes('src=xhs')&&q.includes('ref=share')&&!q.includes('utm')&&!q.includes('subscribed')&&!q.includes('email'))),'带无关参数时 q 只有 src/ref: '+qs.join('|'));
+  ok(qs.every(q=>!q.includes('utm')&&!q.includes('subscribed')&&!q.includes('email')&&!q.includes('@')),'q 不含 utm/subscribed/email');
+  ok(await page.locator('#topic').isVisible(),'工具页面正常');
+  await ctx.close();
+}
+{
+  const {ctx,page,hits}=await setup();
+  await page.goto(BASE+'?utm_campaign=x&subscribed=1'); await page.waitForLoadState('load');
+  await wait(800);
+  const E=evs(hits); const pageviews=E.filter(e=>e.p==='/xhs-title/');
+  ok(pageviews.length>=1,'无 src/ref 时仍有浏览上报');
+  const qs=pageviews.map(e=>e.q);
+  console.log('  无 src/ref 的 q:',JSON.stringify(qs));
+  ok(qs.every(q=>q===null||q===''||q==='?'),'无 src/ref 时 q 为空或省略: '+JSON.stringify(qs));
+  await page.fill('#topic','测试主题'); await page.click('#genBtn');
+  ok(await page.locator('#out li').count()===10,'无 src/ref：工具功能正常');
+  await ctx.close();
+}
+{
+  const {ctx,page,hits}=await setup();
+  await page.goto(BASE+'?src=%3Cscript%3E&ref=evil&foo=bar'); await page.waitForLoadState('load');
+  await wait(800);
+  const E=evs(hits); const pageviews=E.filter(e=>e.p==='/xhs-title/');
+  const qs=pageviews.map(e=>e.q||'');
+  console.log('  非法 src 的 q:',JSON.stringify(qs));
+  ok(qs.every(q=>!q.includes('script')&&!q.includes('<')&&!q.includes('foo')),'非法 src 与无关参数不进 q');
+  // ref=evil 符合短字母代码，可保留；src 非法应丢弃
+  ok(qs.every(q=>!/src=/.test(q||'')),'非法 src 不出现在 q');
+  await ctx.close();
+}
 // F. 登记成功提示
 {
   const {ctx,page}=await setup(); await page.goto(BASE+'?subscribed=1');

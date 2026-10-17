@@ -17,6 +17,20 @@
 
 	var enc = encodeURIComponent
 
+	// Local patch (xhs-title): only allow src/ref in q, values must match short letter codes.
+	var CODE_RE = /^[a-z]{1,10}(-[a-z]{1,10})?$/
+	var safe_query = function() {
+		try {
+			var sp = new URLSearchParams(location.search)
+			var out = []
+			;['src', 'ref'].forEach(function(k) {
+				var v = (sp.get(k) || '').toLowerCase()
+				if (CODE_RE.test(v)) out.push(enc(k) + '=' + enc(v))
+			})
+			return out.length ? ('?' + out.join('&')) : ''
+		} catch (err) { return '' }
+	}
+
 	// Get all data we're going to send off to the counter endpoint.
 	window.goatcounter.get_data = function(vars) {
 		vars = vars || {}
@@ -27,7 +41,7 @@
 			e: !!(vars.event || goatcounter.event),
 			s: window.screen.width,
 			b: is_bot(),
-			q: location.search,
+			q: safe_query(),  // 本地改动：只保留校验过的 src/ref，不整段上报 location.search
 		}
 
 		var rcb, pcb, tcb  // Save callbacks to apply later.
