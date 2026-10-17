@@ -1,0 +1,11 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTitleText": "小红书标题助手",
+    "navigationBarBackgroundColor": "#ff2442",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f7f7f7"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

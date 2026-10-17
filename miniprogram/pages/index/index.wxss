@@ -1,0 +1,11 @@
+.wrap { padding: 32rpx; }
+.h1 { font-size: 40rpx; font-weight: bold; margin-bottom: 12rpx; }
+.desc { color: #666; font-size: 26rpx; margin-bottom: 20rpx; line-height: 1.6; }
+.ipt { background: #fff; border: 1px solid #ddd; border-radius: 16rpx; padding: 20rpx; margin: 12rpx 0; height: 44rpx; line-height: 44rpx; }
+.picker { color: #555; }
+.btn { background: #ff2442; color: #fff; margin: 20rpx 0; }
+.card { background: #fff; border-radius: 16rpx; padding: 24rpx; margin-bottom: 20rpx; }
+.row { display: flex; align-items: flex-start; gap: 16rpx; margin-bottom: 16rpx; }
+.t { flex: 1; font-weight: bold; }
+.b { flex: 1; white-space: pre-wrap; color: #444; font-size: 26rpx; line-height: 1.6; }
+.foot { text-align: center; color: #aaa; font-size: 22rpx; margin: 40rpx 0; }

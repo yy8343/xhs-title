@@ -1,0 +1,9 @@
+{
+  "appid": "touristappid",
+  "projectname": "xhs-title-miniprogram",
+  "miniprogramRoot": "./",
+  "compileType": "miniprogram",
+  "setting": { "es6": true, "minified": true, "urlCheck": true },
+  "packOptions": { "ignore": [{ "type": "folder", "value": "test" }, { "type": "file", "value": "LAUNCH_CHECKLIST.md" }] },
+  "libVersion": "3.0.0"
+}

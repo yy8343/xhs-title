@@ -1,0 +1,20 @@
+<view class="wrap">
+  <view class="h1">小红书标题 + 正文生成</view>
+  <view class="desc">输入笔记主题，一键生成 10 组「标题 + 正文」，可分别复制。内容由模板随机组合，仅供参考，发布前请自行修改核实。</view>
+  <input class="ipt" placeholder="例如：通勤穿搭、减脂早餐、考研英语" maxlength="30" value="{{topic}}" bindinput="onTopic" confirm-type="done" bindconfirm="gen" />
+  <picker range="{{whoList}}" value="{{whoIdx}}" bindchange="onWho">
+    <view class="ipt picker">{{whoIdx > 0 ? whoList[whoIdx] : '目标人群（可选）'}}</view>
+  </picker>
+  <button class="btn" bindtap="gen">生成</button>
+  <view wx:for="{{list}}" wx:key="id" class="card">
+    <view class="row">
+      <text class="t" user-select>{{item.title}}</text>
+      <button size="mini" data-text="{{item.title}}" data-kind="标题" bindtap="copy">复制标题</button>
+    </view>
+    <view class="row">
+      <text class="b" user-select>{{item.body}}</text>
+      <button size="mini" data-text="{{item.body}}" data-kind="正文" bindtap="copy">复制正文</button>
+    </view>
+  </view>
+  <view class="foot">免费工具 · 不收集任何个人信息</view>
+</view>
